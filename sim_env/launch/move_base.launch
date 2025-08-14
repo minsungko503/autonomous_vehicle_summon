@@ -1,0 +1,24 @@
+<launch>
+  <!-- Robot simulator publishes map via /map directly -->
+
+  <!-- GLOBAL PLANNER (D* Lite) -->
+  <param name="base_global_planner" value="rmp/path_planner/PathPlannerNode" />
+
+  <!-- LOCAL PLANNER (LQR) -->
+
+  <node pkg="move_base" type="move_base" name="move_base" output="screen">
+    <!-- Global Costmap Parameters -->
+    <rosparam file="/home/patrick/path_ws/src/core/path_planner/config/global_costmap_params.yaml" command="load"/>
+    <rosparam file="/home/patrick/path_ws/src/core/path_planner/config/global_costmap_plugins.yaml" command="load"/>
+
+    <!-- Local Costmap Parameters -->
+    <rosparam file="/home/patrick/path_ws/src/core/path_planner/config/local_costmap_params.yaml" command="load"/>
+
+    <!-- Move Base Core Parameters -->
+    <rosparam file="/home/patrick/path_ws/src/core/path_planner/config/move_base_params.yaml" command="load"/>
+
+    <!-- LQR Controller Parameters -->
+    <param name="base_local_planner" value="lqr_controller/LQRController" />
+    <rosparam file="/home/patrick/path_ws/src/core/controller/config/lqr_controller_params.yaml" command="load"/>
+  </node>
+</launch>
